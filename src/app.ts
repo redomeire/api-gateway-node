@@ -25,8 +25,8 @@ const expressDebug = debug('api-gateway:server');
 const app = express();
 
 app.use(logger('dev'));
-app.use(json());
-app.use(urlencoded({ extended: false }));
+app.use(json({ limit: '50mb' }));
+app.use(urlencoded({ extended: false, limit: '50mb' }));
 app.use(cookieParser());
 app.use(expressStatic(join(__dirname, 'public')));
 

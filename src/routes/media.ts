@@ -1,11 +1,15 @@
 import { Router } from "express";
-var router = Router();
+import { create } from './handler/media';
 
-/* GET users listing. */
+const router = Router();
+
 router.get('/', function(req, res, next) {
   res.json({
-    status: 200
+    status: 200,
+    message: 'media'
   });
 });
+
+router.post('/', create)
 
 export default router;
