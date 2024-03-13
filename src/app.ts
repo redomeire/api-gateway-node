@@ -17,6 +17,7 @@ import mediaRouter from './routes/media';
 import memberRouter from './routes/member';
 import orderRouter from './routes/order';
 import paymentRouter from './routes/payment';
+import { verifyToken } from './middleware';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -32,7 +33,7 @@ app.use(expressStatic(join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/course', courseRouter);
+app.use('/course', verifyToken, courseRouter);
 app.use('/media', mediaRouter);
 app.use('/member', memberRouter);
 app.use('/order', orderRouter);
