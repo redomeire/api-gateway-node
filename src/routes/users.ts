@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { register } from './handler/user';
+import { login, register } from './handler/user';
 const router = Router();
 
 /* GET users listing. */
@@ -10,5 +10,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/register', register)
+router.post('/login', login)
 
 export default router;
