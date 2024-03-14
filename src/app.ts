@@ -12,6 +12,12 @@ import {fileURLToPath} from 'url';
 // routes
 import indexRouter from './routes/index';
 import usersRouter from './routes/users';
+import courseRouter from './routes/course';
+import mediaRouter from './routes/media';
+import memberRouter from './routes/member';
+import orderRouter from './routes/order';
+import paymentRouter from './routes/payment';
+import { verifyToken } from './middleware';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -20,14 +26,20 @@ const expressDebug = debug('api-gateway:server');
 const app = express();
 
 app.use(logger('dev'));
-app.use(json());
-app.use(urlencoded({ extended: false }));
+app.use(json({ limit: '50mb' }));
+app.use(urlencoded({ extended: false, limit: '50mb' }));
 app.use(cookieParser());
 app.use(expressStatic(join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-var port = normalizePort(process.env.PORT || '3000');
+app.use('/course', verifyToken, courseRouter);
+app.use('/media', mediaRouter);
+app.use('/member', memberRouter);
+app.use('/order', orderRouter);
+app.use('/payment', paymentRouter);
+
+let port = normalizePort(process.env.PORT || '3000');
 
 /**
  * Create HTTP server.

@@ -1,6 +1,5 @@
 import { Router } from "express";
-import { login, register } from './handler/user';
-const router = Router();
+var router = Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -8,8 +7,5 @@ router.get('/', function(req, res, next) {
     status: 200
   });
 });
-
-router.post('/register', register)
-router.post('/login', login)
 
 export default router;
